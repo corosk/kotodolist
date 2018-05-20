@@ -9,4 +9,4 @@ I am writing in Kotlin.
 $ npm install
 $ gradle bootRun
 ```
-access localhost:8080/tasks
+access http://localhost:8080/tasks
