@@ -10,5 +10,7 @@ interface TaskRepository {
 
     fun findAll(): List<Task>
 
+    fun findAllForDelete(): List<Task>
+
     fun findById(id: Long): Task?
 }

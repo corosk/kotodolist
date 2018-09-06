@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>完了タスク一覧</title>
+</head>
+<body>
+<p th:if="${tasks.isEmpty()}">タスクがありません。</p>
+<ul th:unless="${tasks.isEmpty()}">
+    <li th:each="task: ${tasks}">
+            <span th:text="${task.content}"></span>
+    </li>
+</ul>
+<script src="/js/vendor.js"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

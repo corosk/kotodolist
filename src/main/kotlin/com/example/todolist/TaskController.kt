@@ -18,6 +18,13 @@ class TaskController(private val taskRepository: TaskRepository) {
         return "tasks/index"
     }
 
+    @GetMapping("archive")
+    fun archive(model: Model): String {
+        val tasks = taskRepository.findAllForDelete()
+        model.addAttribute("tasks", tasks)
+        return "tasks/archive"
+    }
+
     @GetMapping("vue")
     fun vue(): String {
         return "tasks/vue"

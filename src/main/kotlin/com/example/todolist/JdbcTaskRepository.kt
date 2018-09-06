@@ -30,4 +30,7 @@ class JdbcTaskRepository(private val jdbcTemplate: JdbcTemplate) : TaskRepositor
 
     override fun findById(id: Long): Task? =
             jdbcTemplate.query("SELECT id,content,done,del FROM task WHERE id = ? and del = FALSE", rowMapper, id).firstOrNull()
+
+    override fun findAllForDelete(): List<Task> =
+            jdbcTemplate.query("SELECT id,content,done,del FROM task where del = TRUE", rowMapper)
 }
