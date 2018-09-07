@@ -13,4 +13,6 @@ interface TaskRepository {
     fun findAllForDelete(): List<Task>
 
     fun findById(id: Long): Task?
+
+    fun findMatchInKeyword(keyword: String): List<Task>
 }

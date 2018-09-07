@@ -33,4 +33,7 @@ class JdbcTaskRepository(private val jdbcTemplate: JdbcTemplate) : TaskRepositor
 
     override fun findAllForDelete(): List<Task> =
             jdbcTemplate.query("SELECT id,content,done,del FROM task where del = TRUE", rowMapper)
+
+    override fun findMatchInKeyword(keyword: String): List<Task> =
+            jdbcTemplate.query("SELECT id,content,done,del FROM task where content like ? and del = FALSE", rowMapper, keyword)
 }

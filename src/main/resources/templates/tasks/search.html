@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<ul th:unless="${tasks.isEmpty()}">
+    <li th:each="task: ${tasks}">
+        <a th:href="@{/tasks/{id}/edit(id=${task.id})}">
+            <span th:unless="${task.done}" th:text="${task.content}"></span>
+            <s th:if="${task.done}" th:text="${task.content}"></s>
+        </a>
+    </li>
+</ul>
+</html>

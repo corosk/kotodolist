@@ -52,6 +52,20 @@ class TaskController(private val taskRepository: TaskRepository) {
         return "redirect:/tasks"
     }
 
+    @GetMapping("search")
+    fun search(form: TaskSearchForm,
+               model: Model): String {
+        val keyword = requireNotNull(form.keyword)
+        print("%$keyword%")
+        val tasks = taskRepository.findMatchInKeyword("%$keyword%")
+        for (value in tasks) {
+            print(value.id)
+            print("OK")// 1 2 3 4 5
+        }
+        model.addAttribute("tasks", tasks)
+        return "tasks/search"
+    }
+
     @GetMapping("{id}/edit")
     fun edit(@PathVariable("id") id: Long,
              form: TaskUpdateForm): String {
