@@ -7,6 +7,7 @@
 <body>
 <a th:href="@{/tasks/new}" class="btn btn-primary" role="button">作成</a>
 <p th:if="${tasks.isEmpty()}">タスクがありません。</p>
+<input type="text"/>
 <ul th:unless="${tasks.isEmpty()}">
     <li th:each="task: ${tasks}">
         <a th:href="@{/tasks/{id}/edit(id=${task.id})}">

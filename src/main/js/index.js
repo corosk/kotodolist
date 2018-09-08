@@ -2,74 +2,33 @@ import '../css/index.css';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Vue from 'vue';
+// Ajax通信ライブラリ
+import axios from 'axios';
+// Json取得のベースURL
+const URL_BASE = '/tasks/search/';
 
-// demo data
-var data = {
-    name: 'My Tree',
-    children: [
-        { name: 'hello' },
-        { name: 'wat' },
-        {
-            name: 'child folder',
-            children: [
-                {
-                    name: 'child folder',
-                    children: [
-                        { name: 'hello' },
-                        { name: 'wat' }
-                    ]
-                },
-                { name: 'hello' },
-                { name: 'wat' },
-                {
-                    name: 'child folder',
-                    children: [
-                        { name: 'hello' },
-                        { name: 'wat' }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-
-// define the item component
-Vue.component('item', {
-    template: '#item-template',
-    props: {
-        model: Object
+// Vue.js のインスタンス
+module.exports = new Vue({
+  data: {
+    // Jsonデータ格納用
+    search_list: []
+  },
+  methods: {
+    // Ajax通信でJsonを取得し、特定のプロパティに格納する
+    // 取得したら GET_AJAX_COMPLETE で通知する
+    get_ajax(url, name) {
+      return axios.get(URL_BASE + url)
+      .then((res) => {
+        Vue.set(this, name, res.data);
+        this.$emit('GET_AJAX_COMPLETE');
+      });
     },
-    data: function () {
-        return {
-            open: false
-        }
-    },
-    computed: {
-        isFolder: function () {
-            return this.model.children &&
-                this.model.children.length
-        }
-    },
-    methods: {
-        toggle: function () {
-            if (this.isFolder) {
-                this.open = !this.open
-            }
-        },
-        changeType: function () {
-            if (!this.isFolder) {
-                Vue.set(this.model, 'children', [])
-                this.addChild()
-                this.open = true
-            }
-        },
-        addChild: function () {
-            this.model.children.push({
-                name: 'new stuff'
-            })
-        }
+    // プロパティ名を指定してデータを取得
+    get_data(name) {
+      return this.$data[name];
     }
-})
+  }
+});
 
 // boot up the demo
 var demo = new Vue({
