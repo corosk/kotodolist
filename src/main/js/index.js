@@ -7,33 +7,25 @@ import axios from 'axios';
 // Json取得のベースURL
 const URL_BASE = '/tasks/search/';
 
-// Vue.js のインスタンス
 module.exports = new Vue({
-  data: {
-    // Jsonデータ格納用
-    search_list: []
-  },
-  methods: {
-    // Ajax通信でJsonを取得し、特定のプロパティに格納する
-    // 取得したら GET_AJAX_COMPLETE で通知する
-    get_ajax(url, name) {
-      return axios.get(URL_BASE + url)
-      .then((res) => {
-        Vue.set(this, name, res.data);
-        this.$emit('GET_AJAX_COMPLETE');
-      });
-    },
-    // プロパティ名を指定してデータを取得
-    get_data(name) {
-      return this.$data[name];
-    }
-  }
+-  data: {
+-    // Jsonデータ格納用
+-    search_list: []
+-  }
 });
 
-// boot up the demo
-var demo = new Vue({
-    el: '#demo',
-    data: {
-        treeData: data
+
+new Vue({
+    el: '#tasks',
+     data: {
+        name: 'Vue.js'
+    },
+    // `methods` オブジェクトの下にメソッドを定義する
+    methods: {
+      // Ajax通信でJsonを取得し、特定のプロパティに格納する
+      // 取得したら GET_AJAX_COMPLETE で通知する
+      ajax: function(event) {
+        console.log("OK");
+      }
     }
-})
+});

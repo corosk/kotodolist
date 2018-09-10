@@ -5,17 +5,20 @@
     <title>タスク一覧</title>
 </head>
 <body>
-<a th:href="@{/tasks/new}" class="btn btn-primary" role="button">作成</a>
-<p th:if="${tasks.isEmpty()}">タスクがありません。</p>
-<input type="text" v-on:click="get_ajax('','')"/>
-<ul th:unless="${tasks.isEmpty()}">
-    <li th:each="task: ${tasks}">
-        <a th:href="@{/tasks/{id}/edit(id=${task.id})}">
-            <span th:unless="${task.done}" th:text="${task.content}"></span>
-            <s th:if="${task.done}" th:text="${task.content}"></s>
-        </a>
-    </li>
-</ul>
+<div id="tasks">
+    <a th:href="@{/tasks/new}" class="btn btn-primary" role="button">作成</a>
+    <p th:if="${tasks.isEmpty()}">タスクがありません。</p>
+    <input type="text" v-on:blur="get_ajax"/>
+    <button v-on:click="ajax">ボタン</button>
+    <ul th:unless="${tasks.isEmpty()}">
+        <li th:each="task: ${tasks}">
+            <a th:href="@{/tasks/{id}/edit(id=${task.id})}">
+                <span th:unless="${task.done}" th:text="${task.content}"></span>
+                <s th:if="${task.done}" th:text="${task.content}"></s>
+            </a>
+        </li>
+    </ul>
+</div>
 <script src="/js/vendor.js"></script>
 <script src="/js/index.js"></script>
 </body>
