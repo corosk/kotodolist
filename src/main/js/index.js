@@ -8,24 +8,35 @@ import axios from 'axios';
 const URL_BASE = '/tasks/search/';
 
 module.exports = new Vue({
--  data: {
--    // Jsonデータ格納用
--    search_list: []
--  }
-});
-
-
-new Vue({
     el: '#tasks',
      data: {
-        name: 'Vue.js'
+        url:"/tasks/search/",//v-model="url"の初期値
+        param:"",             //v-model="param"の初期値
+        result:"...."           //v-model="result"の初期値
     },
-    // `methods` オブジェクトの下にメソッドを定義する
+
     methods: {
       // Ajax通信でJsonを取得し、特定のプロパティに格納する
       // 取得したら GET_AJAX_COMPLETE で通知する
       ajax: function(event) {
-        console.log("OK");
+            let config = {
+              headers:{
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type':'application / x-www-form-urlencoded'
+              },
+              withCredentials:true,
+            }
+
+          let param = this.param;
+
+           axios.get("http://localhost:8080/tasks/search/?keyword=" + param)
+                .then(function (response) {
+                    console.log(response);
+                    $("#list").replaceWith(response)
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
       }
     }
 });

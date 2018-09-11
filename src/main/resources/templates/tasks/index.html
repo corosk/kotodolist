@@ -8,9 +8,9 @@
 <div id="tasks">
     <a th:href="@{/tasks/new}" class="btn btn-primary" role="button">作成</a>
     <p th:if="${tasks.isEmpty()}">タスクがありません。</p>
-    <input type="text" v-on:blur="get_ajax"/>
+    <input type="text" v-model="param"/>
     <button v-on:click="ajax">ボタン</button>
-    <ul th:unless="${tasks.isEmpty()}">
+    <ul th:unless="${tasks.isEmpty()}" id="list">
         <li th:each="task: ${tasks}">
             <a th:href="@{/tasks/{id}/edit(id=${task.id})}">
                 <span th:unless="${task.done}" th:text="${task.content}"></span>
