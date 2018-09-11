@@ -7,33 +7,36 @@ import axios from 'axios';
 // Json取得のベースURL
 const URL_BASE = '/tasks/search/';
 
-// Vue.js のインスタンス
 module.exports = new Vue({
-  data: {
-    // Jsonデータ格納用
-    search_list: []
-  },
-  methods: {
-    // Ajax通信でJsonを取得し、特定のプロパティに格納する
-    // 取得したら GET_AJAX_COMPLETE で通知する
-    get_ajax(url, name) {
-      return axios.get(URL_BASE + url)
-      .then((res) => {
-        Vue.set(this, name, res.data);
-        this.$emit('GET_AJAX_COMPLETE');
-      });
+    el: '#tasks',
+     data: {
+        url:"/tasks/search/",//v-model="url"の初期値
+        param:"",             //v-model="param"の初期値
+        result:"...."           //v-model="result"の初期値
     },
-    // プロパティ名を指定してデータを取得
-    get_data(name) {
-      return this.$data[name];
-    }
-  }
-});
 
-// boot up the demo
-var demo = new Vue({
-    el: '#demo',
-    data: {
-        treeData: data
+    methods: {
+      // Ajax通信でJsonを取得し、特定のプロパティに格納する
+      // 取得したら GET_AJAX_COMPLETE で通知する
+      ajax: function(event) {
+            let config = {
+              headers:{
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type':'application / x-www-form-urlencoded'
+              },
+              withCredentials:true,
+            }
+
+          let param = this.param;
+
+           axios.get("http://localhost:8080/tasks/search/?keyword=" + param)
+                .then(function (response) {
+                    console.log(response);
+                    $("#list").replaceWith(response)
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
+      }
     }
-})
+});

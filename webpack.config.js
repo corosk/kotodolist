@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 var fs = require('fs')
 
+
 const vendor = { vendor: ['vue'] }
 const entries = fs.readdirSync('./src/main/js')
                     .filter(a => /\.js$/.test(a))
@@ -13,7 +14,6 @@ const entries = fs.readdirSync('./src/main/js')
 module.exports = {
     entry: entries,
     output: {
-        // path: path.resolve(__dirname, './build/classes/main/static/js'),
         path: path.resolve(__dirname, './src/main/resources/static/js'),
         publicPath: '/js/',
         filename: '[name].js',
